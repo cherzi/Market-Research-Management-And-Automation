@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Blog
+{% endblock %}
+
+{% block content %}
+<figure>
+	<div class="fixed-wrap">
+		<div id="fixed"></div>
+	</div>
+</figure>
+
+<br> <br>
+<div class="container ">
+	<h1 class="display-3 text-center"> Articles</h1> <br>
+
+<!-- article detail dans l'url n'est pas le nom du template mais le nom spécifié dans urls.py -->
+
+<div class="col-md-6">
+
+	<ul style="list-style: none;">
+		{% for article in object_list %}
+		<li> <h1> <a href="{% url 'blog:articleDetail' article.pk %} ">{{ article.title }}</a> - {{ article.author }} 
+			</h1>
+			{% if user.is_authenticated %}
+			        {% if user.groups.all.0.name == "Admin" %}
+
+				<small><a href="{% url 'blog:modifierArticle' article.pk %}"> (Modifier) </a></small>
+				<small><a href="{% url 'blog:supprimerArticle' article.pk %}"> (Supprimer) </a></small>
+				{% endif %}
+			{% endif %}
+			<br/><br>
+			{{ article.body|slice:":300" }}
+		</li>
+		<br><br>
+		{% endfor %}
+	</ul>
+</div>
+	
+  
+</div>
+
+
+{% endblock %}

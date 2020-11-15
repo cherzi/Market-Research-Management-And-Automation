@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    {% block title%}
+      BRIMarketing
+    {% endblock %}
+  </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  <!-- <link href="style.css" rel="stylesheet"> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="shortcut icon" href="{% static 'homepage/images/logob.png' type='image/x-icon' %}">
+  <!-- <link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css"> -->
+  <!-- semantic UI -->
+    <!-- <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css"> -->
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+  <div class ="container-fluid">
+    <a class="navbar-brand" href="/home"><img src="{% static 'homepage/images/logobrim.png' %}"  width="100" alt="Image"/> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item active" >
+            <a class="nav-link" href="/home">Home</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/blog">Articles</a>
+        </li>
+
+
+
+        {% if user.is_authenticated %}
+        {% if user.groups.all.0.name == "Délégué" %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="/membres/profil">Profil</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Espace Client</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+
+        {% elif user.groups.all.0.name == "Abonné"%}
+
+           <li class="nav-item">
+              <a class="nav-link" href="{% url 'polls:nossondages' %}">Nos sondages</a>
+            </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'membres:profil' %}">Profil</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+
+          {% else %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'polls:nossondages' %}">Nos sondages</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/membres/profil">Profil</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/dash">Espace Admin</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+
+          {% endif %}
+        {% else %}
+
+
+          <li class="nav-item">
+              <a class="nav-link" href="#">Nos sondages</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="/home/contact">Contact</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Compte
+            </a>
+            <div class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'membres:login' %}">Se connecter</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'membres:inscrire' %}">S'inscrire</a>
+            </div>
+          </li>
+
+        {% endif %}
+
+      </ul>
+    </div>
+  </div>  
+</nav>
+
+{% block scripts  %}{% endblock%}
+
+{% block content %}{% endblock%}
+
+<!--- Footer -->
+<footer>
+  <div class="container-fluid padding dern">
+    <div class="row text-center">
+      <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+        <hr class="light">
+        <h5>Adresse</h5>
+        <hr class="light">
+        <p>Cyber Parc - route nationale N° 63 - Rahmania - Alger</p>
+      </div>
+
+      <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6" style="padding-bottom: 0;">
+        <hr class="light">
+        <h5>Contact</h5>
+        <hr class="light">
+        <p>E-mail: contact@bri-marketing.com</p>
+        <p>Tel: +213 555 77 66 44</p>
+        <p>Tel: +213 661 44 84 55</p>
+      </div>
+
+      <div class="col-12">
+        <hr class="light-100">
+        <p>&copy; www.brimarketing.dz - 2019</p>
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+          <!-- Popper.JS -->
+         <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> -->
+          <!-- Bootstrap JS -->
+          <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
+</body>
+</html>

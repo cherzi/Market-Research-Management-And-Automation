@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}
+	Predire le prix
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<br>
+	<h1>Pedire le prix du mobile</h1>
+	<br><br>
+
+	<div class="form-group">
+		<form method="POST">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button class="btn btn-secondary"> Predire </button>
+		</form>
+	</div>
+	
+	<br>
+
+
+
+</div>
+
+{% endblock %}

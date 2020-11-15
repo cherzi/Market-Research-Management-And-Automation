@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Segmenter les clients
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+</style>
+
+<div class="container-fluid menocote">
+
+	{% include 'sidebar.html' %}
+
+		<div class="container" style="margin-bottom: 150px;">
+			<br><br><br>
+			<h1>Ségmenter les clients </h1>
+			<br><br>
+
+			<div class="user_card card">
+				<div class="card-body">
+					<div class="form-group" action="predire" center>
+						<form method="POST" enctype="multipart/form-data" class="form-group">
+							{% csrf_token %}
+							{{ form.as_p }}
+							<button type="submit" class="btn btn-primary" class="form-control">Ségmenter</button> 
+						</form>
+					</div>
+				</div>
+			</div> <br>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

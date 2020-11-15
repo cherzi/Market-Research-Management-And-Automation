@@ -1,0 +1,62 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Créer un article
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+        {% if user.groups.all.0.name == "Admin" %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+<div class="container-fluid menucote">
+
+	{% include 'sidebar.html' %}
+
+<div class="container">
+	<br> <br>
+	<h3 class="display-4 dark-text text-center">Ajouter un nouvel article</h3>
+	<div class="user_card card rounded-0" style="margin: 100px; margin-top: 50px;">
+		<div class=" card-body">
+						<!-- <img src="{% static 'models/images/mobile.jpg' %}" class="card-img-top"> -->
+		<div class="form-group">
+			<form method="POST">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button class="btn btn-secondary">Ajouter</button>
+			</form>
+		</div>
+		</div>
+	</div>
+
+	
+	<br>
+</div>
+
+</div>
+</div>
+
+{% endif %}
+{% endif %}
+
+
+
+
+{% endblock %}

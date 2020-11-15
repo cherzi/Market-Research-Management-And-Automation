@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Supprimer la commande
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid menocote">
+	{% include 'sidebar.html' %}
+
+	<div class="container" style="margin-bottom: 40px; margin-top: 40px" >
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card card-body">
+					<p>Etes-vous sûr de vouloir supprimer {{name}} {{item.id }} ?</p>
+
+					<form method="POST" action="{% url 'client:supprimercommande' item.id %}">
+
+						{% csrf_token %}
+						<a href="{% url 'client:commandes' %}" class="btn btn-danger">Annuler</a>
+
+						<button class="btn btn-primary" type="submit">Supprimer</button> 
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
+
+	</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Clients
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+<div class="container-fluid menocote">
+	{% include 'sidebar.html' %}
+
+	<div class="container" style="margin-bottom: 40px;"> 
+		<br>
+			<div class="row">
+				<div class="col">
+					<div class="card card-body">
+						<form method="get">
+							{{myFilter.form}}
+					    <button class="btn btn-primary" type="submit">Recherche</button>
+					  </form>
+					</div>
+				</div>
+				
+			</div>
+			<br>
+		<br>
+		<div class="col-12">
+					<h5>Liste des clients</h5>
+					<hr>
+					<div class="user_card card card-body">
+						<a class="btn btn-primary btn-sm btn-block" href="{% url 'client:creerclient' %}">Ajouter un client</a> 
+						<br>
+						<table class="table">
+							<tr>
+								<th>Client</th>
+								<th>Email</th>
+								<th>Tel mobile</th>
+								<th>Représentant</th>
+								<th>Statut</th>
+								<th>Action</th>
+							</tr>
+
+							{% for cli in clientliste %}
+								<tr>
+									<td>{{ cli.NAME }}</td>
+									<td>{{ cli.EMAIL }}</td>
+									<td>{{ cli.PHONE }}</td>
+									<td>{{ cli.VISAGE }}</td>
+									<td>{{ cli.STATUT}}</td>
+									<td><a href="{% url 'client:client' cli.pk %}" class="btn btn-info btn-sm">Consulter</a></td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Nouveau model
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+<div class="container-fluid menocote">
+
+	{% include 'sidebar.html' %}
+
+		<div class="container">
+			<br><br><br>
+			<h1>Créer un nouveau modèle</h1>
+			<br><br>
+
+			<div class="user_card card">
+				<div class="card-body">
+					<div class="form-group" action="">
+						<form method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							{{ form.as_p }}
+							<button type="submit" class="btn btn-secondary rounded-0">Résultat</button> 
+						</form>
+					</div>
+				</div>
+			</div> <br>
+
+			<p></p>
+			
+			<br><br><br>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

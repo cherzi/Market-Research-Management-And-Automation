@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}
+	{{ article.title }}
+{% endblock %}
+
+{% block content %}
+
+<br>
+<div class="container">
+
+	<div class="col-md-8">
+	<h1> {{ article.title }}</h1>
+	<small>By: {{ article.author }} - {{ article.date_pub}}
+		{% if user.is_authenticated %}         
+		{% if user.groups.all.0.name == "Admin" %}
+
+			- <a href="{% url 'blog:modifierArticle' article.pk %}"> (Modifier) </a> - 
+			<a href="{% url 'blog:supprimerArticle' article.pk %}"> (Supprimer) </a></small> 
+		{% endif %}
+		{% endif %}
+		<br/> <hr>
+	{{ article.body }}
+	<br><br>
+
+	<a href="{% url 'blog:listeArticles' %}">Back</a>
+</div>
+
+<br>
+	
+</div>
+
+
+{% endblock %}

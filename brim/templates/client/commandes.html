@@ -1,0 +1,82 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Commandes
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+<div class="container-fluid menocote">
+	{% include 'sidebar.html' %}
+
+	<div class="container" style="margin-bottom: 40px;" >
+		{% include 'client/statutcommandes.html' %}
+		<br>
+		<div class="col-12">
+			<br>
+			<div class="row">
+				<div class="col">
+					<div class="card card-body">
+						<form method="get">
+							{{myFilter.form}}
+					    <button class="btn btn-primary" type="submit">Recherche</button>
+					  </form>
+					</div>
+				</div>
+				
+			</div>
+			<br>
+					<h5>Liste des commandes</h5>
+					<hr>
+					<div class="user_card card card-body">
+						<a class="btn btn-primary btn-sm btn-block" href="{% url 'client:creercommande' %}">Ajouter une commande</a> 
+						<br>
+						<table class="table ">
+							<tr>
+								<th>Id</th>
+								<th>Catégorie</th>
+								<th>Client</th>
+								<th>Date de début</th>
+								<th>Date d'échéance</th>
+								<th>Statut</th>
+								<th>Consulter</th>
+								<th>Supprimer</th>
+							</tr>
+
+							{% for com in commandeliste %}
+								<tr>
+									<td>{{ com.id }}</td>
+									<td>{{ com.CATEGORY }}</td>
+									<td>{{ com.AUTEUR.NAME }}</td>
+									<td>{{ com.DATE_CREATION }}</td>
+									<td>{{ com.DATE_ECHEANCE }}</td>
+									<td>{{ com.STATUT}}</td>
+									<td><a href="{% url 'client:modifiercommande' com.id %}" class="btn btn-primary btn-sm">Consulter</a></td>
+									<td><a href="{% url 'client:supprimercommande' com.id %}" class="btn btn-danger btn-sm">Supprimer</a></td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+{% endblock %}

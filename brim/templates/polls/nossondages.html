@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Nos sondages
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card{
+		background-color: #FCFCFC;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+	}
+
+
+</style>
+
+<div class="container" style="margin-bottom: 120px;"> <br><br>
+	<h1 style="text-align: center;" class="display-4 text-center">SONDAGES DISPONIBLES</h1><br>
+	<div class="row">
+		<div class="col-7">	
+			<br>
+				{% for sondage in liste_sondages %}
+				{% if user not in sondage.personnes.all %}
+					<div class="user_card card rounded-0">
+						<div class="card-body">
+							<h1 class="card-title" style="text-transform: uppercase;">{{ sondage.name }}</h1>
+							<small> Ce sondage possède {{ sondage.nb }} questions</small>
+							<p class="card-text"></p>
+							<a href="{% url 'polls:unsondage' sondage.pk %}"><button class="btn btn-primary rounded-0">Répondre</button></a>
+						</div>
+					</div>	<br>
+				{% endif %}
+				{% endfor %}	
+		</div>
+	</div>	
+</div>
+
+
+{% endblock %}

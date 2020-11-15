@@ -1,0 +1,77 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Formulaire Maisons
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+<div class="container-fluid menucote">
+	
+	{% include 'sidebar.html' %}
+					<!-- Fin de side nav -->
+					<!-- Debut de main content -->
+
+		<div class="container col-6">
+			<br>
+			<h1>Entrer les informations relatives à la maison</h1>
+			<br><br>
+
+			<div class="user_card card">
+				<div class=" card-body">
+					<div class="form-group" >
+						<div class="form-group" action="predire" center>
+							<form method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								{{ form.as_p }}
+								<button class="btn btn-secondary rounded-0">Prédire le prix</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><br><br>
+			
+			<div class="user_card card">
+				<div class=" card-body">
+					<p>Le prix de la maison est estimé à: {{ y_pred }}</p>
+				</div>
+			</div><br><br>
+
+			
+
+			
+		
+			<br>
+		</div>
+
+
+
+
+		
+	</div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

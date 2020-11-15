@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	{{ sondage.name }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card{
+		background-color: #FCFCFC;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+	}
+
+
+</style>
+
+<div class="container" style="margin-bottom: 120px;"> <br><br>
+	<h1 style="text-align: center; text-transform: uppercase;" class="display-4 text-center">{{ sondage.name }}</h1><br>
+	<div class="row">
+		<div class="col-12">	
+			<br>
+			<form method="POST" class="form-check form-group">
+				{% csrf_token %}
+
+				{% for question in questions %}
+				{% with forloop.counter as outer_counter %}
+					<div class="user_card card rounded-0">
+						<div class="card-body ">
+							<h5 class="card-title" style="">Question {{ outer_counter }}: {{ question.text_q }} ?</h5>
+								{% for choix in question.choix_set.all %}
+
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+									<input required type="radio" name="{{outer_counter}}" id="choix{{ forloop.counter }}" value="{{ choix.pk }}" class="form-check-input"/>
+
+									<label for="choice{{ forloop.counter }}">
+										{{choix.text_ch}}
+									</label>
+
+								{% endfor %}
+						</div>
+					</div>
+					<br>
+					{% endwith %}
+				{% endfor %}	
+
+				<button type="submit" class="btn btn-primary">Envoyer</button>
+			</form>
+				
+		</div>
+	</div>	
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,214 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Dashboard
+{% endblock %}
+
+{% block scripts  %}
+
+<script>
+	$(document).ready(function(){
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: [{% for client in clients %}'{{client.NAME}}',{% endfor %}],
+		        datasets: [{
+		            label: '',
+		            data: [{% for client in clients %}'{{client.commande_set.all.count}}',{% endfor %}],
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)',
+		                'rgba(255, 159, 64, 0.2)'
+		            ],
+		            borderColor: [
+		                'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero: true
+		                },
+
+		                scaleLabel: {
+					        display: true,
+					        labelString: 'Nombre de commandes'
+					     }
+		            }]
+		        },
+
+		        title: {
+		            display: true,
+		            text: 'Nombre de commandes par client'
+		   		}
+		    }
+		});
+
+
+
+		var ctx2 = document.getElementById('myChart2').getContext('2d');
+		var myChart2 = new Chart(ctx2, {
+		    type: 'pie',
+		    data: {
+		        labels: [{% for sondage in sondages %}'{{sondage.name}}',{% endfor %}],
+		        datasets: [{
+		            label: '# of Votes',
+		            data: [{% for sondage in sondages %}'{{sondage.nbreponses}}',{% endfor %}],
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)',
+		                'rgba(255, 159, 64, 0.2)'
+		            ],
+		            borderColor: [
+		                'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            
+		        },
+
+		        title: {
+		            display: true,
+		            text: 'Nombre de réponses pour chaque sondage'
+		        }
+		    }
+		});
+
+		var ctx3 = document.getElementById('myChart3').getContext('2d');
+		var myChart3 = new Chart(ctx3, {
+		    type: 'bar',
+		    data: {
+		        labels: [{% for sondage in sondages %}'{{sondage.name}}',{% endfor %}],
+		        datasets: [{
+		            label: '',
+		            data: [{% for sondage in sondages %}'{{sondage.question_set.all.count}}',{% endfor %}],
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)',
+		                'rgba(255, 159, 64, 0.2)'
+		            ],
+		            borderColor: [
+		                'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero: true
+		                },
+
+		                scaleLabel: {
+					        display: true,
+					        labelString: 'Nombre de questions'
+					     }
+		            }]
+		        },
+
+		        title: {
+		            display: true,
+		            text: 'Nombre de questions par sondage'
+		   		}
+		    }
+		});
+	});
+</script>
+
+{% endblock%}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+<div class="container-fluid">
+
+	{% include 'sidebar.html' %}
+
+		<div class="container" style="margin-bottom: 80px;">
+			<br>
+			<h1> </h1>
+			<br><br>
+			<div class="row">
+				<div class="col-6">
+					<div class="user_card card">
+						<div class="card-body">
+							<canvas id="myChart" width="300" height="200"></canvas>
+						</div>
+					</div> <br>
+				</div>
+
+
+				<div class="col-6">
+					<div class="user_card card">
+						<div class="card-body">
+							<canvas id="myChart2" width="300" height="200"></canvas>
+						</div>
+					</div> <br>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-6">
+					<div class="user_card card">
+						<div class="card-body">
+							<canvas id="myChart3" width="300" height="200"></canvas>
+						</div>
+					</div> <br>
+				</div>
+				
+			</div>
+			
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

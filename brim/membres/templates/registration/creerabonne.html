@@ -1,0 +1,53 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Abonné
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+		width: 600px;
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+<div class="container-fluid menocote">
+	{% include 'sidebar.html' %}
+
+	<div class="container" style="margin-bottom: 40px; margin-top: 40px" >
+
+		<div class="row">
+			<div class="user_card">
+				<div class="card card-body">
+
+					<form method="POST">
+			
+						{% csrf_token %}
+						{{ form.as_p }}
+
+						<button class="btn btn-primary" type="submit">Enregistrer</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
+
+	</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Profil client
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+<div class="container-fluid menocote">
+	{% include 'sidebar.html' %}
+
+	<div class="container" style="margin-bottom: 40px;"> <br><br>
+
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body rounded-0 clientcard">
+					<h5>Client:</h5>
+					<hr>
+					<p>Nom: {{client.NAME}}</p>
+					<a class="btn btn-outline-primary  btn-sm btn-block" href="{% url 'client:creercommandes' client.id %}">Passer une commande</a>
+					<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'client:modifierclient' client.id %}">Mettre à jour le client</a>
+					<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'client:supprimerclient' client.id %}">Supprimer le client</a>
+
+				</div>
+			</div>
+
+			<div class="col-md">
+				<div class=" card card-body rounded-0 clientcard">
+					<h5>Informations:</h5>
+					<hr>
+
+					<p>Statut: {{client.STATUT}}</p>
+					<p>Représentant: {{client.VISAGE}}</p>
+					<p>Email: {{client.EMAIL}}</p>
+					<p>Mobile: {{client.PHONE}}</p>
+				</div>
+			</div>
+
+			<div class="col-md">
+				<div class="card card-body rounded-0 clientcard">
+					<h5>Commandes totales</h5>
+					<hr>
+					<h1 style="text-align: center;padding: 10px">{{nbcommandes}}</h1>
+				</div>
+			</div>
+		</div>
+
+
+		<br>
+		<div class="row">
+			<div class="col">
+				<div class="card card-body">
+					<form method="get">
+						{{myFilter.form}}
+				    <button class="btn btn-primary" type="submit">Recherche</button>
+				  </form>
+				</div>
+			</div>
+			
+		</div>
+		<br>
+
+		<div class="row" style="margin-bottom: 40px;">
+			<div class="col-md">
+				<div class="user_card card card-body">
+					<table class="table">
+						<tr>
+							<th>Catégorie</th>
+							<th>Date de début</th>
+							<th>Date d'échéance</th>
+							<th>Statut</th>
+							<th>Consulter</th>
+							<th>Supprimer</th>
+						</tr>
+
+						{% for commande in commandes %}
+						<tr>
+							<td>{{commande.CATEGORY}}</td>
+							<td>{{commande.DATE_CREATION}}</td>
+							<td>{{commande.DATE_ECHEANCE}}</td>
+							<td>{{commande.STATUT}}</td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'client:modifiercommande' commande.id %}">Consulter</a></td>
+							<td><a class="btn btn-danger btn-sm" href="{% url 'client:supprimercommande' commande.id %}">Supprimer</a></td>
+						</tr>
+						{% endfor %}
+
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+
+
+	</div>
+</div>
+
+{% endblock %}

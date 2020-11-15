@@ -1,0 +1,78 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Les sondages
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+	.btn-secondary {
+		width: 220px;
+	}
+</style>
+
+<div class="container-fluid menocote">
+	{% include 'sidebar.html' %}
+
+	<div class="container" style="margin-bottom: 150px;"> 
+		<br> <br>
+			<div class="row">
+				<div class="col">
+					<div class="user_card card card-body">
+						<form method="get">
+							{{myFilter.form}}
+					    <button class="btn btn-primary" type="submit">Recherche</button>
+					  </form>
+					</div>
+				</div>
+				
+			</div>
+			<br>
+		<br>
+		<div class="col-12">
+					<h5>Liste des Sondages</h5>
+					<hr>
+					<div class="user_card card card-body">
+						<table class="table">
+							<tr>
+								<th>Sondage</th>
+								<th>Client</th>
+								<th>Nombre de réponses</th>
+								<th>Statut</th>
+								<th>Action</th>
+							</tr>
+
+							{% for s in sondageliste %}
+								<tr>
+									<td>{{ s.name }}</td>
+									<td>{{ s.client.NAME }}</td>
+									<td>{{ s.nbreponses }}</td>
+									<td>{{ s.statut }}</td>
+									<td><a href="{% url 'polls:resultat' s.pk %}" class="btn btn-info btn-sm">Consulter</a></td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+		</div>
+	</div>
+
+	</div>
+</div>
+
+{% endblock %}

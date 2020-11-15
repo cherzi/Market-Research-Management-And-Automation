@@ -1,0 +1,93 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Users
+{% endblock %}
+
+{% block content %}
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+</style>
+
+
+<div class="container-fluid menocote">
+	{% include 'sidebar.html' %}
+
+	<div class="container" style="margin-bottom: 40px;"> 
+		<br>
+			<div class="row">
+				<div class="col-6">
+					<h5>Liste des abonnés</h5>
+					<hr>
+					<div class=" user_card card card-body rounded-0">
+						<a class="btn btn-primary btn-sm btn-block" href="{% url 'membres:creerabonne' %}">Créer un abonné</a> 
+						<br>
+						<table class="table">
+							<tr>
+								<th>Username</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Profil</th>
+							</tr>
+
+							{% for abonne in abonneliste %}
+								<tr>
+									<td>{{ abonne.username }}</td>
+									<td>{{ abonne.last_name }}</td>
+									<td>{{ abonne.first_name }}</td>
+									<td><a href="" class="btn btn-info btn-sm">Consulter</a></td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+
+
+				<div class="col-6">
+					<h5>Liste des délégués</h5>
+					<hr>
+					<div class="user_card card card-body rounded-0">
+						<a class="btn btn-primary btn-sm btn-block" href="{% url 'membres:creerdelegue' %}">Créer un délégué</a> 
+						<br>
+						<table class="table">
+							<tr>
+								<th>Client</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Profil</th>
+							</tr>
+
+							{% for delegue in delegueliste %}
+								<tr>
+									<td>{{ delegue.Client.name }}</td>
+									<td>{{ delegue.last_name }}</td>
+									<td>{{ delegue.first_name }}</td>
+									<td><a href="" class="btn btn-info btn-sm">Consulter</a></td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+				
+			</div>
+			<br>
+		<br>
+		
+	</div>
+	</div>
+</div>
+
+{% endblock %}

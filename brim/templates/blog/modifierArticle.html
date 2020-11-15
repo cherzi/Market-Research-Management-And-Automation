@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Modifier l'article
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+        {% if user.groups.all.0.name == "Admin" %}
+
+<div class="container">
+	<br>
+	<h1>Modifier l'article</h1>
+	<br><br>
+
+	<div class="form-group">
+		<form method="POST">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button class="btn btn-secondary">Modifier</button>
+		</form>
+	</div>
+	
+	<br>
+</div>
+{% endif %}
+{% endif %}
+
+
+
+
+{% endblock %}

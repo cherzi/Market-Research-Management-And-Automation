@@ -1,0 +1,91 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	{{ sondage.name }} - Résultats
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card{
+		background-color: #FCFCFC;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+	}
+
+
+</style>
+
+<div class="container-fluid menocote">
+	{% include 'sidebar.html' %}
+
+	<div class="container" style="margin-bottom: 100px;"><br>
+		<div class="row">
+			<div class="col-4">
+				<div class="card card-body rounded-0 clientcard">
+					<h5>Sondage:</h5>
+					<hr>
+					<p>Nom: {{sondage.name}}</p>
+					<p>Statut: {{sondage.statut}}</p>
+					<p>Client: {{sondage.client.NAME}}</p>
+					<p>Nombre de réponses: {{sondage.nbreponses}}</p>
+					<p>Date de création: {{sondage.date_creation}}</p>
+				</div>
+			</div>
+
+			<div class="col-4">
+				<div class=" card card-body rounded-0 clientcard">
+					<h5>Action:</h5>
+					<hr>
+					<a class="btn btn-outline-info  btn-block" href="/admin/polls/sondage/{{sondage.pk}}/change/">Modifier le sondage</a>
+					{% if sondage.statut == "Archive" %}
+						<a class="btn btn-outline-info  btn-block" href="{% url 'polls:activer' sondage.pk %}">Activer le sondage</a>
+					{% else %}
+						<a class="btn btn-outline-info  btn-block" href="{% url 'polls:archiver' sondage.pk %}">Archiver le sondage</a>
+					{% endif %}
+					<a class="btn btn-outline-danger btn-block" href="">Supprimer le sondage</a>
+				</div>
+			</div>
+
+			<div class="col-md">
+				<div class="card card-body rounded-0 clientcard">
+					<h5>Nombres de questions</h5>
+					<hr>
+					<h1 style="text-align: center;padding: 10px">{{sondage.question_set.all.count}}</h1>
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<div class="col-12">
+				
+				<h2 style="text-transform: uppercase;">Les questions : </h2> <br>
+
+				{% for question in questions %}
+				{% with forloop.counter as outer_counter %}
+					<div class="user_card card rounded-0">
+						<div class="card-body ">
+							<h5 class="card-title" style="">Question {{ outer_counter }}: {{ question.text_q }} ?</h5>
+								{% for choix in question.choix_set.all %}
+
+								<li class="list-group-item">
+									{{ choix.text_ch }}  
+									<span class="badge badge-success float-right">{{ choix.nbreponses }} vote{{ choix.nbreponses | pluralize }}</span>
+								</li>
+
+								{% endfor %}
+						</div>
+					</div>
+					<br>
+					{% endwith %}
+				{% endfor %}
+		</div>
+	</div>
+
+	</div>
+</div>
+
+{% endblock %}

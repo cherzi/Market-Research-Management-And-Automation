@@ -1,0 +1,72 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+	Nouveau model
+{% endblock %}
+
+{% block content %}
+
+<style>
+	.user_card {
+			margin-top: auto;
+			margin-bottom: auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+	input {
+
+		    box-shadow: 0px 0px 0px !important;
+		    border-top : none;
+		    border-left : none;
+		    border-right : none;
+		    height: 40px;
+
+	}
+
+	textarea:focus, input:focus{
+	    outline: none;
+	}
+</style>
+
+<div class="container-fluid menocote">
+
+	{% include 'sidebar.html' %}
+
+		<div class="container" style="margin-bottom: 80px;">
+			<br><br><br>
+			<h1>{{algo.name}}</h1>
+			<br><br>
+
+			<div class="user_card card">
+				<div class="card-body">
+					<div class="form-group" action="predire" center>
+						<form method="POST" enctype="multipart/form-data" class="form-group">
+							{% csrf_token %}
+							<h5>Saisir les données </h5> <br>
+							{% for var in variables %}
+								<input type="text" name="{{ var.name }}" placeholder="{{ var.name }}"> &nbsp;
+							{% endfor %}
+							<br><br>
+							<h5>Ou uploader un fichier </h5> <br>
+							<input type="file" name="fichier"><br><br>
+
+							<button type="submit" class="btn btn-primary" class="form-control">Prédire</button> 
+						</form>
+					</div>
+				</div>
+			</div> <br>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}
